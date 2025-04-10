@@ -12,6 +12,11 @@ public class BlockHit : MonoBehaviour
     {
         if (!animating && maxHits != 0 && collision.gameObject.CompareTag("Player"))
         {
+            bool isbig = GameObject.Find("Big").GetComponent<SpriteRenderer>().enabled;
+            if (collision.transform.DotTest(transform, Vector2.up) && isbig && gameObject.name == ("Brick"))
+            {
+                brickbreak();
+            }
             if (collision.transform.DotTest(transform, Vector2.up)) {
                 Hit();
             }
@@ -34,6 +39,10 @@ public class BlockHit : MonoBehaviour
         }
 
         StartCoroutine(Animate());
+    }
+    private void brickbreak()
+    {
+        Destroy(gameObject);
     }
 
     private IEnumerator Animate()

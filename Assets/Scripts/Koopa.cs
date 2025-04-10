@@ -20,6 +20,10 @@ public class Koopa : MonoBehaviour
                 player.Hit();
             }
         }
+        if (collision.gameObject.CompareTag("FIREBALL"))
+        {
+            Hit();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

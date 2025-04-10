@@ -6,6 +6,7 @@ public class Goomba : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //监测与玩家发生碰撞
         if (collision.gameObject.CompareTag("Player") && collision.gameObject.TryGetComponent(out Player player))
         {
             if (player.starpower) {
@@ -15,6 +16,11 @@ public class Goomba : MonoBehaviour
             } else {
                 player.Hit();
             }
+        }
+        if (collision.gameObject.CompareTag("FIREBALL")) 
+        {
+            Hit();
+            
         }
     }
 

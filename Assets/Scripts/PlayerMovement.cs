@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         jumping = velocity.y > 0f;
 
         // Perform jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             velocity.y = jumpForce;
             jumping = true;
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGravity()
     {
         // Check if falling
-        bool falling = velocity.y < 0f || !Input.GetButton("Jump");
+        bool falling = velocity.y < 0f || !Input.GetKey(KeyCode.W);
         float multiplier = falling ? 2f : 1f;
 
         // Apply gravity and terminal velocity

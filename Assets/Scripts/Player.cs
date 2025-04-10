@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Properties;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
 
     public PlayerSpriteRenderer smallRenderer;
     public PlayerSpriteRenderer bigRenderer;
+    public PlayerSpriteRenderer FireRender;
     private PlayerSpriteRenderer activeRenderer;
 
     public bool big => bigRenderer.enabled;
@@ -27,6 +29,9 @@ public class Player : MonoBehaviour
     {
         if (!dead && !starpower)
         {
+            //后续添加  超级模式缩水
+
+
             if (big) {
                 Shrink();
             } else {
@@ -50,12 +55,39 @@ public class Player : MonoBehaviour
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
 
+        //Fire Mode Enter
+        FireRender.enabled = false;
+        gameObject.transform.GetComponentInChildren<FireBallController>().enabled = false;
+
+
+
+
         capsuleCollider.size = new Vector2(1f, 2f);
         capsuleCollider.offset = new Vector2(0f, 0.5f);
 
         StartCoroutine(ScaleAnimation());
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Fireflower"))
+        {
+            
+                FireMode();
+                gameObject.transform.GetComponentInChildren<FireBallController>().enabled = true;
+                GameObject.Find("fire").GetComponent<AnimatedSprite>().enabled = true;
+                
+                Destroy(other.gameObject);
+            
+            
+        }
+    }
+    public void FireMode() 
+    {
+        bigRenderer.enabled = false;
+        smallRenderer.enabled = false;
+        FireRender.enabled = true;
+        activeRenderer = FireRender;
+    }
     public void Shrink()
     {
         smallRenderer.enabled = true;
