@@ -109,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyGravity()
     {
         // Check if falling
+        // test
         bool falling = velocity.y < 0f || !Input.GetKey(KeyCode.W);
         float multiplier = falling ? 2f : 1f;
 
